@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
-import { useParams, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { getUrlByShortCode, incrementClicks } from "../services/urlService";
 
 const RedirectPage = () => {
-  const { "*": shortCode } = useParams<{ "*": string }>();
   const location = useLocation();
   const [redirectUrl, setRedirectUrl] = useState<string | null>(null);
   const [notFound, setNotFound] = useState(false);
