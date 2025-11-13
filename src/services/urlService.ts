@@ -75,8 +75,8 @@ export const createShortUrl = async (
     original_url: originalUrl,
     short_code: shortCode,
     clicks: 0,
-    is_custom: customCode ? 1 : 0, // Send as number for database
-    is_active: 1, // Send as number for database
+    is_custom: customCode ? 1 : 0,
+    is_active: 1,
   };
 
   if (password) {
@@ -112,12 +112,11 @@ export const getAllUrls = async (): Promise<UrlData[]> => {
     throw new Error("Failed to fetch URLs");
   }
 
-  // Convert database types to TypeScript types
   const urls = (response.result || []).map((url: any) => ({
     ...url,
     clicks: parseInt(String(url.clicks || 0), 10),
-    is_custom: Boolean(url.is_custom),
-    is_active: Boolean(url.is_active),
+    is_custom: url.is_custom === 1 || url.is_custom === true,
+    is_active: url.is_active === 1 || url.is_active === true,
   }));
 
   return urls;
@@ -150,8 +149,8 @@ export const getUrlById = async (id: number): Promise<UrlData | null> => {
     return {
       ...url,
       clicks: parseInt(String(url.clicks || 0), 10),
-      is_custom: Boolean(url.is_custom),
-      is_active: Boolean(url.is_active),
+      is_custom: url.is_custom === 1 || url.is_custom === true,
+      is_active: url.is_active === 1 || url.is_active === true,
     };
   } catch (error) {
     console.error("Error fetching URL by ID:", error);
@@ -188,25 +187,12 @@ export const toggleUrlStatus = async (
 ): Promise<void> => {
   const response = (await Api.put(`/urls/${id}`, {
     body: {
-      is_active: isActive ? 1 : 0, // Convert boolean to number for database
+      is_active: isActive ? 1 : 0,
     },
   })) as ApiResponse<CreateResponse>;
 
   if (response.err) {
     throw new Error("Failed to update URL status");
-  }
-};
-
-export const updateUrl = async (
-  id: number,
-  updates: Partial<UrlData>
-): Promise<void> => {
-  const response = (await Api.put(`/urls/${id}`, {
-    body: updates,
-  })) as ApiResponse<CreateResponse>;
-
-  if (response.err) {
-    throw new Error("Failed to update URL");
   }
 };
 
@@ -220,4 +206,3 @@ export const deleteUrl = async (id: number): Promise<void> => {
     throw new Error("Failed to delete URL");
   }
 };
-

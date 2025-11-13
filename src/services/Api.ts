@@ -28,10 +28,13 @@ type HttpMethod = "get" | "post" | "put" | "delete" | "sql";
 
 type RequestOptions = {
   loading?: boolean;
-  body?: {
-    sql: "string";
-    params: [{ [key: string]: string | number }];
-  };
+
+  // body?: {
+  //   sql: "string";
+  //   params: [{ [key: string]: string | number }];
+  // };
+
+  body?: any;
   key?: string;
   page?: string;
   sort?: string;
