@@ -181,6 +181,7 @@ interface UrlCardProps {
   url: UrlData;
   onDelete: (id: number) => void;
   onToggleStatus: (id: number, isActive: boolean) => void;
+  onVisit: (shortCode: string) => void;
 }
 
 const UrlCard = ({ url, onDelete, onToggleStatus }: UrlCardProps) => {

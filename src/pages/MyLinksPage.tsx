@@ -21,7 +21,9 @@ const MyLinksPage = () => {
     document.title = "My Links | QuickLink";
   }, []);
 
-  const pollingIntervalRef = useRef<NodeJS.Timeout | null>(null);
+  // const pollingIntervalRef = useRef<NodeJS.Timeout | null>(null);
+  const pollingIntervalRef = useRef<number | null>(null);
+
 
   const fetchUrls = useCallback(async () => {
     try {
