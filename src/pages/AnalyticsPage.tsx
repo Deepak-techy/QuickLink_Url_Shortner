@@ -8,6 +8,11 @@ const AnalyticsPage = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    document.title = "Analytics | QuickLink";
+  }, []);
+
+
+  useEffect(() => {
     const fetchUrls = async () => {
       try {
         const data = await getAllUrls();

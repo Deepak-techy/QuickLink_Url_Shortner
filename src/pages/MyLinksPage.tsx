@@ -16,6 +16,11 @@ const MyLinksPage = () => {
   const [toastType, setToastType] = useState<"success" | "error" | "info">(
     "success"
   );
+
+  useEffect(() => {
+    document.title = "My Links | QuickLink";
+  }, []);
+
   const pollingIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
   const fetchUrls = useCallback(async () => {

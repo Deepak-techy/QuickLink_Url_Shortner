@@ -1,10 +1,15 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import UrlShortenerForm from "../components/UrlShortenerForm";
 import SuccessModal from "../components/SuccessModal";
 
 const HomePage = () => {
   const [createdShortCode, setCreatedShortCode] = useState<string | null>(null);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
+
+  useEffect(() => {
+    document.title = "QuickLink | Create Short Links";
+  }, []);
+
 
   const handleUrlCreated = (shortCode: string) => {
     setCreatedShortCode(shortCode);
